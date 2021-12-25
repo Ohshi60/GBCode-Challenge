@@ -1,7 +1,7 @@
-const express = require('express')
+import express, {Request, Response} from 'express'
 
-const app = express()
-const userRouter = require('./routes/userRouter')
+const app = express();
+import userRouter from './routes/userRouter';
 
 //refactor into using dotenv environment variables at some point for port etc
 
@@ -10,7 +10,7 @@ const PORT = 3001
 
 app.use('/user', userRouter)
 
-app.get('/', (req,res) => {
+app.get('/', (req: Request,res: Response) => {
   res.send('Welcome to root')
 })
 app.listen(PORT, () => {
