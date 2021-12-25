@@ -16,3 +16,8 @@ app.get('/', (req: Request,res: Response) => {
 app.listen(PORT, () => {
   console.log(`Server started at port ${PORT}`)
 })
+
+/*
+Implement from 
+https://console.firebase.google.com/u/0/project/very-sirius-proyecta/overview
+*/
