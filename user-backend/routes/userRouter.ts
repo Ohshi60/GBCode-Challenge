@@ -5,7 +5,7 @@ const userRouter = express.Router()
 //signup
 userRouter.post('/signup', (req,res) => {
 
-    console.log('Signup user with form data')
+    console.log('Signup user with form data', req.body)
     res.send('user signed up')
 })
 //sign in

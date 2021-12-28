@@ -2,21 +2,19 @@
 import express, {Request, Response} from 'express'
 import { initializeApp } from 'firebase/app';
 import {getAuth} from 'firebase/auth'
-
-const app = express();
-
+import cors from 'cors'
 //Custom Module imports
 import userRouter from './routes/userRouter';
 import firebaseConfig from './fb-config'
-//refactor into using dotenv environment variables at some point for port etc
-
-
+//Constants
 const PORT = 3001 
-
 //App setup
+const app = express();
 const fbApp = initializeApp(firebaseConfig)
 const auth = getAuth(fbApp)
-
+//apply middleware
+app.use(cors())
+app.use(express.json())
 app.use('/user', userRouter)
 
 app.get('/', (req: Request,res: Response) => {
