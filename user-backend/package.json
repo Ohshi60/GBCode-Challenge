@@ -7,6 +7,7 @@
     "start": "ts-node server.ts",
     "dev": "nodemon server.ts",
     "lint": "eslint . --ext .ts",
+    "lint-fix": "eslint . --fix --ext .ts",
     "tsc": "tsc"
   },
   "keywords": [],

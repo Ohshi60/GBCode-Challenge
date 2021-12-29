@@ -15,5 +15,6 @@ module.exports = {
     '@typescript-eslint',
   ],
   'rules': {
+    'new-cap': ['error', {'capIsNewExceptions': ['Router']}],
   },
 };
