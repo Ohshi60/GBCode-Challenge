@@ -1,16 +1,18 @@
 import express from 'express';
 
+import createUser from '../services/authService';
+
 const userRouter = express.Router();
 
 // signup
-userRouter.post('/signup', (req, res) => {
-  console.log('Signup user with form data', req.body);
-  console.log('email', req.body.email);
-  console.log('plaintext password', req.body.password);
-  res.send('user signed up');
-});
+userRouter.post('/signup', createUser);
+// console.log('Signup user with form data', req.body);
+// console.log('email', req.body.email);
+// console.log('plaintext password', req.body.password);
+// createUser()
+// res.send('user signed up');
 // sign in
-userRouter.post('/signin', (req, res) => {
+userRouter.post('/signin', (_req, res) => {
   console.log('Posted data to the signin endpoint');
   res.send('signed in?');
 });
