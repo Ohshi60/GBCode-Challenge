@@ -2,6 +2,7 @@
 import React, {useState} from 'react'
 import axios from 'axios'
 //components
+import {auth, createUserWithEmailAndPassword} from '../services/auth'
 
 //misc
 const baseUrl="http://localhost:3001/user/signup"
@@ -11,6 +12,23 @@ export default function Signup() {
   const [email, setEmail] = useState('email here')
   const [password,setPassword] = useState('')
   const [confirmPw, setConfirmPw] = useState('')
+
+  const signUpNewUser = async (event: any) => {
+    event.preventDefault()
+    if(password === confirmPw) {
+      try{
+        const newUserCredential = await createUserWithEmailAndPassword(auth, email, password)
+        
+        const user = newUserCredential.user  
+        console.log(user)
+      } catch (e) {
+        console.log(e)
+      }
+    } else {
+      alert('Passwords do not match')
+    }
+    
+  }
 
   const handleSubmit = (event: any) => {
     event.preventDefault()
@@ -28,12 +46,11 @@ export default function Signup() {
         console.error(e.message)
       })
     }
-    
   }
   return (
     <div>
       <h1>Signup</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={signUpNewUser}>
         <label>Email
           <input type="email" value={email} onChange={(event) => {setEmail(event.target.value)}}></input>
         </label>
