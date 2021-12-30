@@ -5,6 +5,7 @@ import React, {useState, useEffect} from 'react';
 import Signup from './components/Signup'
 import Signin from './components/Signin'
 import Signout from './components/Signout'
+import Account from './components/Account'
 
 
 //services
@@ -29,6 +30,7 @@ function App() {
       <p>Im not a boilerplate</p>
       <Signup></Signup>
       {user===null? <Signin></Signin>: <Signout></Signout> }
+      <Account></Account>
     </div>
   );
 }
