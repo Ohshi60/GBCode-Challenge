@@ -2,6 +2,7 @@ import express from 'express';
 
 import createUser from '../services/authService';
 
+import {checkAuthCredentials} from '../middleware/auth-middle';
 const userRouter = express.Router();
 
 // signup
@@ -18,7 +19,7 @@ userRouter.post('/signin', (_req, res) => {
 });
 
 // request user profile page - needs to be authenticated to access this
-userRouter.get('/:id', (req, res) => {
+userRouter.get('/:id', checkAuthCredentials, (req, res) => {
   // if req.params.id === decodedToken.uid;
   console.log('received request frm ', req);
   console.log('user profile for id', req.params.id);

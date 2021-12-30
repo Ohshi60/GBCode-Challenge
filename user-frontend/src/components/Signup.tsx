@@ -29,24 +29,6 @@ export default function Signup() {
     }
     
   }
-
-  const handleSubmit = (event: any) => {
-    event.preventDefault()
-    console.log('handleSubmit')
-    if(password !== confirmPw){
-      alert('Passwords do not match')
-    } else {
-      //api call
-      axios.post(baseUrl, {
-        email: email,
-        password: password
-      }).then(response => {
-        console.log(response)
-      }).catch(e => {
-        console.error(e.message)
-      })
-    }
-  }
   return (
     <div>
       <h1>Signup</h1>
