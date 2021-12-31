@@ -6,6 +6,7 @@ import {auth } from '../services/auth'
 export default function Account() {
 
   const [data,setData] = useState<any | null>(null)
+  
   const getDeetz = async () => {
     const token = await auth.currentUser?.getIdToken() 
     const uid = await auth.currentUser?.uid   
@@ -17,11 +18,16 @@ export default function Account() {
     }})
     setData(res.data)
   }
+  useEffect( () => {
+    if(data!== null){
+      getDeetz()
+    }
+  }, [])
 
   return (
     <div>
       <button onClick={getDeetz}>Get Deets</button>
-      {data===null? <p>No data</p> : <p>{data}</p>}
+      {data===null? <p>No data</p> : <p>{JSON.stringify(data)}</p>}
     </div>
   )
 }

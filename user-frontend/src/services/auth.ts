@@ -3,8 +3,7 @@ import { initializeApp } from "firebase/app";
 import {
   getAuth,
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  onAuthStateChanged
+  signInWithEmailAndPassword
   } from 'firebase/auth'
 
 import firebaseConfig from "../config/firebase-config";
@@ -13,4 +12,4 @@ import firebaseConfig from "../config/firebase-config";
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app)
 
-export {auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged}
+export {auth, createUserWithEmailAndPassword, signInWithEmailAndPassword}

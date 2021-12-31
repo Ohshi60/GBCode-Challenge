@@ -19,7 +19,7 @@ const checkAuthCredentials =
       // destructure token from req object first
       const {authToken} = req;
       const userInfo = await admin.auth().verifyIdToken(authToken);
-      console.log('userinfo fetched ', userInfo);
+      // console.log('userinfo fetched ', userInfo);
       req.authid = userInfo.uid;
       return next();
     } catch (e) {

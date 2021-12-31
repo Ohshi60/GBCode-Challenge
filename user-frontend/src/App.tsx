@@ -9,13 +9,13 @@ import Account from './components/Account'
 
 
 //services
-import {auth, onAuthStateChanged} from './services/auth'
+import {auth} from './services/auth'
 //misc setup
 function App() {
   const [user,setUser] = useState<any | null>(null)
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user: any) => {
+    auth.onAuthStateChanged(user => {
       if(user){
         setUser(user)
         console.log('User just logged in: ' , user.email)
