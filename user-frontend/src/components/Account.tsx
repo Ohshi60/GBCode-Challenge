@@ -19,7 +19,7 @@ export default function Account() {
     setData(res.data)
   }
   useEffect( () => {
-    if(data!== null){
+    if(data != null){
       getDeetz()
     }
   }, [])

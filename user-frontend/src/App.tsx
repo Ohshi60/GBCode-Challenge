@@ -28,9 +28,9 @@ function App() {
   return (
     <div className="App">
       <p>Im not a boilerplate</p>
-      <Signup></Signup>
-      {user===null? <Signin></Signin>: <Signout></Signout> }
-      <Account></Account>
+      <Signup/>
+      {user===null? <Signin/>: <Signout/> }
+      <Account/>
     </div>
   );
 }
