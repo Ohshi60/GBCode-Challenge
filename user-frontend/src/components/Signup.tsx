@@ -1,6 +1,5 @@
 //lib imports
 import React, {useState} from 'react'
-import axios from 'axios'
 //components
 import {auth, createUserWithEmailAndPassword} from '../services/auth'
 

@@ -26,16 +26,11 @@ userRouter
         res.json({message: 'Error - couldnt find user'});
       }
     })
-    .put( checkAuthCredentials, (_req, res) => {
+    .put( checkAuthCredentials, (req, res) => {
+      console.log('received put req');
+      const {fname, lname, country} = req.body;
+      console.log(fname, lname, country);
       res.send('todo');
     });
-// .get(checkAuthCredentials, (req, res) => {
-//   // if req.params.id === decodedToken.uid;
-//   // console.log('received request frm ', req);
-//     console.log('user profile for id', req.params.id);
-//     res.send(`Welcome mr ${req.params.id}`);
-// });
-// .put(checkAuthCredentials,(req,res) => {
-//   res.send('ok')
-// })
+
 export default userRouter;

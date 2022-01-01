@@ -29,7 +29,7 @@ export default function Signin() {
         <label>Password
           <input type="password" value={password} onChange={(event) => {setPassword(event.target.value)}}></input>
         </label>
-        <button type="submit">SIGN IN</button>
+        <button type="submit" value="submit">SIGN IN</button>
       </form>    
     </div>
   )
