@@ -7,7 +7,6 @@ import Signin from './components/Signin'
 import Signout from './components/Signout'
 import Account from './components/Account'
 
-
 //services
 import {auth} from './services/auth'
 //misc setup

@@ -1,4 +1,3 @@
 node_modules/
 build/
 serviceAccountKey.json
-firebase-config.ts
