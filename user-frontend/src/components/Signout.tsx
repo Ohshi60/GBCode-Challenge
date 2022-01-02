@@ -1,11 +1,15 @@
 // import { signOut } from 'firebase/auth'
 import React from 'react'
 
+import { useAuth } from '../contexts/AuthContext'
 import {auth} from '../services/auth'
 export default function Signout() {
+
+  const {signOut} = useAuth()
+  
   const signOutHandler = () => {
-    auth.signOut().then( () => {
-      console.log('signout called')
+    signOut().then( () => {
+      console.log('signed out')
     })
   }
   return (

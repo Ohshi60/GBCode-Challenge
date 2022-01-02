@@ -1,5 +1,5 @@
 import React, {useContext, useState, createContext, useEffect} from 'react'
-import { auth } from '../services/auth';
+import { auth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from '../services/auth';
 
 
 const AuthContext = createContext({})
@@ -17,6 +17,13 @@ export const AuthProvider: React.FC = ({children})  => {
     return auth.signOut()
   }
 
+  const signIn = (email:string,password:string) => {
+    return signInWithEmailAndPassword(auth,email,password)
+  }
+  const registerUser = (email: string,password: string) => {
+    return createUserWithEmailAndPassword(auth,email,password)
+  }
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged( user => {
       setCurrentUser(user);
@@ -27,7 +34,9 @@ export const AuthProvider: React.FC = ({children})  => {
 
   const value = {
     currentUser,
-    signOut
+    signOut,
+    signIn,
+    registerUser
   }
 
   return (    
