@@ -20,8 +20,8 @@ userRouter
     })
     .put( checkAuthCredentials, (req, res) => {
       console.log('received put req');
-      const {fname, lname, country} = req.body;
-      console.log(fname, lname, country);
+      const {firstName, lastName, country, age} = req.body;
+      console.log(firstName, lastName, country, age);
       // call our db function to update user details
       try {
         const updatedUser = updateUser(req.params.id, req.body);

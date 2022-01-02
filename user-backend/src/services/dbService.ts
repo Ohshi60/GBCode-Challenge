@@ -21,9 +21,9 @@ const refreshDb = () => {
         console.error(err);
         return reject(err);
       };
-      console.log('readfile', data);
+      // console.log('readfile', data);
       const parsedData =JSON.parse(data);
-      console.log('parsed', parsedData);
+      // console.log('parsed', parsedData);
       return resolve(parsedData);
     });
   });
@@ -76,10 +76,12 @@ export const getUser = async (uid: string) => {
 };
 
 export const updateUser = async (uid:string, data:any) => {
+  const {firstName, lastName, country,age} = data
   const db:any = await refreshDb();
   const user = db.find( (user:any) => user.uid === uid);
-  const updatedUser = {...user, country: data.country, firstName: data.fname,
-    lastName: data.lname};
+  // const updatedUser = {...user, country: data.country, firstName: data.fname,
+  //   lastName: data.lname};
+  const updatedUser = {...user, firstName, lastName, country, age};
   const updatedDb = db.map( (user:any) => user.uid!==uid ? user : updatedUser );
   writeToDb(updatedDb);
   console.log('updated user');

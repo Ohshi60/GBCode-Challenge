@@ -6,15 +6,14 @@ import { useAuth } from '../contexts/AuthContext'
 
 export default function Account() {
 
-  const [data,setData] = useState<any | null>(null) // this should be user
+  //TODO: refactor into object
   const [firstName,setFirstName] = useState('Jane')
   const [lastName,setLastName] = useState('Doe')
   const [age,setAge] = useState(1)
   const [country,setCountry] = useState('Denmark') //lets assume they are from dk as default
   const {currentUser}  = useAuth();
 
-  //
-
+  
   // const getUser = async () => {
   //   const token = await auth.currentUser?.getIdToken() 
   //   const uid = await auth.currentUser?.uid   
@@ -36,8 +35,8 @@ export default function Account() {
       }
     }).then( response => {
       console.log('found user', response.data)
-      if (response.data.firstName){setCountry(response.data.firstName)}
-      if (response.data.lastName){setCountry(response.data.lastName)}
+      if (response.data.firstName){setFirstName(response.data.firstName)}
+      if (response.data.lastName){setLastName(response.data.lastName)}
       if (response.data.country){setCountry(response.data.country)}
       if (response.data.age){setAge(response.data.age)}
 
@@ -57,17 +56,14 @@ export default function Account() {
     //call api backend with form data
     console.log('update user submit')
     //input validation first
-      try {
-        axios.put(`http://localhost:3001/user/${currentUser.uid}`, {"fname": firstName, "lname": lastName, "country": country},{ headers:
-        {
-          authorization: `Bearer ${currentUser.accessToken}`
-        }}).then(res => {
-          setData(res.data) 
-        }).catch(e => console.log(e))
-      } catch {
-        console.log('Error: Couldnt update user')
-      }
-  }
+    axios.put(`http://localhost:3001/user/${currentUser.uid}`, {firstName,  lastName, country, age},{ headers:
+      {
+        authorization: `Bearer ${currentUser.accessToken}`
+      }}).then(response => {
+        console.log('updated user')
+      }).catch(e => console.log(e))
+    } 
+  
   return (
     <>
       <div>
@@ -78,9 +74,9 @@ export default function Account() {
       </div>
       <div>
         <form onSubmit={updateUserDetails}>
-          <input type="text" value={firstName} onChange={(event) => {setFirstName(event?.target.value)}}/>
-          <input type="text" value={lastName} onChange={(event) => {setLastName(event?.target.value)}}/>
-          <input type="number" value={age} onChange={(e) => {setAge(Number(e.target.value))}}/>
+          <input type="text" required value={firstName} onChange={(event) => {setFirstName(event?.target.value)}}/>
+          <input type="text" required value={lastName} onChange={(event) => {setLastName(event?.target.value)}}/>
+          <input type="number" required min={1} max={99} value={age} onChange={(e) => {setAge(Number(e.target.value))}}/>
           <select value={country} onChange={(e) => setCountry(e.target.value)}>
             <option>Denmark</option>
             <option>Sweden</option>
