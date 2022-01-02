@@ -1,36 +1,27 @@
 //Lib imports
-import React, {useState, useEffect} from 'react';
-
+import React from 'react';
+import { Routes, Route} from 'react-router-dom';
 //components
-import Signup from './components/Signup'
 import Signin from './components/Signin'
-import Signout from './components/Signout'
 import Account from './components/Account'
+import Signup from './components/Signup';
 
-//services
-import {auth} from './services/auth'
+import { useAuth } from './contexts/AuthContext';
 //misc setup
 function App() {
-  const [user,setUser] = useState<any | null>(null)
-
-  useEffect(() => {
-    auth.onAuthStateChanged(user => {
-      if(user){
-        setUser(user)
-        console.log('User just logged in: ' , user.email)
-      } else {
-        setUser(null)
-      }
-    } )
-  }, [])
+  const { currentUser } = useAuth();
 
   return (
-    <div className="App">
-      <p>Im not a boilerplate</p>
-      <Signup/>
-      {user===null? <Signin/>: <Signout/> }
-      <Account/>
-    </div>
+      <div>
+        <p>Header</p>
+        <Routes>
+          <Route path="/" element={(
+            currentUser ? <Account/> : <Signin/> 
+          )}></Route>
+          <Route path="/signup" element={<Signup/>}></Route>
+          <Route path="/signin" element={<Signin/>}></Route>
+        </Routes>
+      </div>
   );
 }
 

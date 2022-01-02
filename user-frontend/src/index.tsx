@@ -1,5 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import { BrowserRouter } from 'react-router-dom';
 
-ReactDOM.render(<App />,document.getElementById('root'));
+import App from './App';
+import { AuthProvider } from './contexts/AuthContext'
+
+ReactDOM.render(
+  <BrowserRouter>
+    <AuthProvider>
+      <App />
+    </AuthProvider>
+  </BrowserRouter>
+  ,document.getElementById('root')
+);

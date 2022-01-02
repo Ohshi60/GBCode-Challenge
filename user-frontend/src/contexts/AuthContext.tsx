@@ -1,23 +1,20 @@
-import { userInfo } from 'os';
 import React, {useContext, useState, createContext, useEffect} from 'react'
 import { auth } from '../services/auth';
-const defaultState = {
-  currentUser: null
-}
 
-const AuthContext = createContext({});
 
-export function useAuth() {
-  useContext(AuthContext)
+const AuthContext = createContext({})
+
+export const useAuth: any = () => {
+  return useContext(AuthContext)
 }
 
 export const AuthProvider: React.FC = ({children})  => {
  
-  const [currentUser, setCurrentUser] = useState<any | null>()
+  const [currentUser, setCurrentUser] = useState<any>()
   const [loading, setLoading] = useState(true)
 
-  const value = {
-    currentUser
+  const signOut = () => {
+    return auth.signOut()
   }
 
   useEffect(() => {
@@ -27,6 +24,11 @@ export const AuthProvider: React.FC = ({children})  => {
     })
     return unsubscribe
   }, [])
+
+  const value = {
+    currentUser,
+    signOut
+  }
 
   return (    
     <AuthContext.Provider value={value}>

@@ -1,22 +1,22 @@
 //lib imports
-import React, {useState} from 'react'
+import React, {useState, useRef } from 'react'
 //components
 import {auth, createUserWithEmailAndPassword} from '../services/auth'
-
+import { useAuth } from '../contexts/AuthContext'
 //misc
 const baseUrl="http://localhost:3001/user/signup"
 
 export default function Signup() {
 
-  const [email, setEmail] = useState('email here')
-  const [password,setPassword] = useState('')
-  const [confirmPw, setConfirmPw] = useState('')
+  const emailRef = useRef<any |null>()
+  const passwordRef = useRef<any |null>()
+  const passwordConfirmRef = useRef<any |null>()
 
   const signUpNewUser = async (event: any) => {
     event.preventDefault()
-    if(password === confirmPw) {
+    if(passwordRef === passwordConfirmRef) {
       try{
-        const newUserCredential = await createUserWithEmailAndPassword(auth, email, password)
+        const newUserCredential = await createUserWithEmailAndPassword(auth, emailRef.current.value, passwordRef.current.value)
         
         const user = newUserCredential.user  
         console.log(user)
@@ -34,13 +34,13 @@ export default function Signup() {
         <h1>Signup</h1>
         <form onSubmit={signUpNewUser}>
           <label>Email
-            <input type="email" value={email} onChange={(event) => {setEmail(event.target.value)}}></input>
+            <input type="email" ref={emailRef} required></input>
           </label>
           <label>Password
-            <input type="password" value={password} onChange={(event) => {setPassword(event.target.value)}}></input>
+            <input type="password" ref={passwordRef} required></input>
           </label>
           <label>Confirm Password
-            <input type="password" value={confirmPw} onChange={(event) => {setConfirmPw(event.target.value)}}></input>
+            <input type="password" ref={passwordConfirmRef} required></input>
           </label>
           <button type="submit">SIGN UP</button>
         </form>
