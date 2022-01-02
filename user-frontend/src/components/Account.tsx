@@ -20,12 +20,15 @@ export default function Account() {
     {
       authorization: `Bearer ${token}`
     }})
+    console.log('deetz result', res.data);
     setData(res.data)
+    setFirstName(res.data.firstName)
+    setLastName(res.data.lastName)
+    setCountry(res.data.country)
   }
+
   useEffect( () => {
-    if(data !== null){
-      getDeetz()
-    }
+    if(data !== null) getDeetz()
   }, [])
 
   const updateUserDetails = async (e: any)=> {
@@ -38,10 +41,11 @@ export default function Account() {
       console.log('uid', uid)
       console.log('token', token)
       try {
-        await axios.put(`http://localhost:3001/user/${uid}`, {"fname": firstName, "lname": lastName, "country": country},{ headers:
+        const res = await axios.put(`http://localhost:3001/user/${uid}`, {"fname": firstName, "lname": lastName, "country": country},{ headers:
         {
           authorization: `Bearer ${token}`
         }})
+        setData(res.data)
       } catch {
         console.log('Error: Couldnt update user')
       }
@@ -49,11 +53,11 @@ export default function Account() {
   return (
     <div>
       <button onClick={getDeetz}>Get Deets</button>
-      {data===null? <p>No data</p> : <p>{data.email}</p>}
+      {data===null? <p>No data</p> : <p>{JSON.stringify(data)}</p>}
       <form onSubmit={updateUserDetails}>
-        <input type="text" onChange={(event) => {setFirstName(event?.target.value)}}/>
-        <input type="text" onChange={(event) => {setLastName(event?.target.value)}}/>
-        <select name="country" onChange={(e) => setCountry(e.target.value)}>
+        <input type="text" value={firstName} onChange={(event) => {setFirstName(event?.target.value)}}/>
+        <input type="text" value={lastName} onChange={(event) => {setLastName(event?.target.value)}}/>
+        <select name="country" value={country} onChange={(e) => setCountry(e.target.value)}>
           <option>Denmark</option>
           <option>Sweden</option>
           <option>Norway</option>

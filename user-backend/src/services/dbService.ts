@@ -1,5 +1,40 @@
-import db from '../db/users.json';
+import fs from 'fs';
+// import db from '../db/users.json';
 
+
+const fileName = './src/db/users.json';
+// db helper function to write to our json file and update it
+const writeToDb =async (db: any) => {
+  try {
+    await fs.writeFile(fileName, JSON.stringify(db), (err) => {
+      if (err) return console.error(err);
+      console.log('updated json file');
+    });
+  } catch (e) {
+    console.log('error updating json file', e);
+  }
+};
+const refreshDb = () => {
+  return new Promise((resolve, reject) => {
+    fs.readFile(fileName, 'utf8', (err, data) => {
+      if (err) {
+        console.error(err);
+        return reject(err);
+      };
+      console.log('readfile', data);
+      const parsedData =JSON.parse(data);
+      console.log('parsed', parsedData);
+      return resolve(parsedData);
+    });
+  });
+};
+// const getSyncDb = () => {
+//   const data = fs.readFileSync(fileName, 'utf8');
+//   console.log('readfile', data);
+//   const parsedData =JSON.parse(data);
+//   console.log('parsed', parsedData);
+//   return parsedData;
+// };
 
 // interface User {
 //   uid: number,
@@ -8,15 +43,19 @@ import db from '../db/users.json';
 //   lastName: string,
 //   age: number
 // }
-export const getUser = (uid: string) => {
+export const getUser = async (uid: string) => {
   // find user from our "db" - if we cant find the user we will create one
   // filter worse runtime than find but who cares
   console.log('getUser called for uid', uid );
   try {
-    const user = db.find( (user) => {
+    // const db = await loadDbFromFile();
+    const db:any = await refreshDb();
+
+    console.log('db', db);
+    const user = await db.find( (user: any) => {
       return user.uid === uid;
     });
-    console.log('user', user)
+    console.log('user found', user);
     if (!user) {
       console.log('user?');
       const newUser= {
@@ -26,16 +65,23 @@ export const getUser = (uid: string) => {
         'lastName': '',
         'age': 1,
       };
-      console.log('newUser', newUser)
       db.push(newUser);
-      console.log('db push', db)
-      return newUser
-    } else {return user}
+      console.log('updated db', db);
+      writeToDb(db);
+      return newUser;
+    } else return user;
   } catch (e) {
     return e;
   };
 };
 
-// export const updateUser = (uid, data) => {
-//   const newDb = [...db, db]
-// }
+export const updateUser = async (uid:string, data:any) => {
+  const db:any = await refreshDb();
+  const user = db.find( (user:any) => user.uid === uid);
+  const updatedUser = {...user, country: data.country, firstName: data.fname,
+    lastName: data.lname};
+  const updatedDb = db.map( (user:any) => user.uid!==uid ? user : updatedUser );
+  writeToDb(updatedDb);
+  console.log('updated user');
+  return updatedUser;
+};

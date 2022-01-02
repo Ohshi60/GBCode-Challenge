@@ -1,9 +1,1 @@
-[
-  {
-    "uid": "1",
-    "country": "Sverige",
-    "firstName": "John",
-    "lastName": "Doe",
-    "age": 69
-  }
-]
+[{"uid":"1","country":"Sverige","firstName":"John","lastName":"Doe","age":69},{"uid":"QuLsnFCAuAQ3JCP8IGGzIx6dCvz2","country":"Denmark","firstName":"Ebbe","lastName":"Sand","age":1},{"uid":"WyqzZsWYt0ZQsykG2a2QP7RmRxs1","country":"","firstName":"","lastName":"","age":1},{"uid":"TGurh2xf4vZAVSUiBhvu1hVuApv1","country":"Finland","firstName":"Aben","lastName":"Pedro","age":1},{"uid":"gF7dXbx5mXMUH4q7d4mgVReRoa72","country":"Finland","firstName":"Aben","lastName":"lalala","age":1}]
