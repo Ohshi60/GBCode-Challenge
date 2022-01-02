@@ -23,8 +23,13 @@ userRouter
       const {fname, lname, country} = req.body;
       console.log(fname, lname, country);
       // call our db function to update user details
-      const updatedUser = updateUser(req.params.id, req.body);
-      res.json(updatedUser);
+      try {
+        const updatedUser = updateUser(req.params.id, req.body);
+        res.json(updatedUser);
+      } catch (e) {
+        console.error(e);
+        res.json({message: 'Error - couldnt update user'});
+      }
     });
 
 export default userRouter;
