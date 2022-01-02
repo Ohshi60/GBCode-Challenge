@@ -29,25 +29,25 @@ export default function Signup() {
     
   }
   return (
-    <div>
-      <h1>Signup</h1>
-      <form onSubmit={signUpNewUser}>
-        <label>Email
-          <input type="email" value={email} onChange={(event) => {setEmail(event.target.value)}}></input>
-        </label>
-        <label>Password
-          <input type="password" value={password} onChange={(event) => {setPassword(event.target.value)}}></input>
-        </label>
-        <label>Confirm Password
-          <input type="password" value={confirmPw} onChange={(event) => {setConfirmPw(event.target.value)}}></input>
-        </label>
-        <button type="submit">SIGN UP</button>
-      </form>
-
-      <p>{email}</p>
-      <p>{password}</p>
-      <p>{confirmPw}</p>
-      <p>{password === confirmPw? 'true' : 'false'}</p>
-    </div>
+    <>
+      <div>
+        <h1>Signup</h1>
+        <form onSubmit={signUpNewUser}>
+          <label>Email
+            <input type="email" value={email} onChange={(event) => {setEmail(event.target.value)}}></input>
+          </label>
+          <label>Password
+            <input type="password" value={password} onChange={(event) => {setPassword(event.target.value)}}></input>
+          </label>
+          <label>Confirm Password
+            <input type="password" value={confirmPw} onChange={(event) => {setConfirmPw(event.target.value)}}></input>
+          </label>
+          <button type="submit">SIGN UP</button>
+        </form>
+      </div>
+      <div>
+        <p>already have an account? Link to sign in</p>
+      </div>
+    </>
   )
 }

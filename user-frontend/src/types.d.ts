@@ -1,0 +1,4 @@
+
+interface IAuth {
+  currentUser: any;
+}
