@@ -11,7 +11,7 @@ export default function Signout() {
   const signOutHandler = () => {
     signOut().then( () => {
       console.log('signed out')
-    })
+    }).catch( console.error('error signing out'))
   }
   return (
     <Button

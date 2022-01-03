@@ -10,7 +10,6 @@ const userRouter = express.Router();
 userRouter
     .route('/:id')
     .get( checkAuthCredentials, async (req, res) => {
-      console.log('get id req', req.params.id);
       try {
         const usr = await getUser(req.params.id);
         res.json(usr);
@@ -19,9 +18,6 @@ userRouter
       }
     })
     .put( checkAuthCredentials, (req, res) => {
-      console.log('received put req');
-      const {firstName, lastName, country, age} = req.body;
-      console.log(firstName, lastName, country, age);
       // call our db function to update user details
       try {
         const updatedUser = updateUser(req.params.id, req.body);

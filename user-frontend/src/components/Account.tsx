@@ -22,23 +22,11 @@ export default function Account() {
   const [country,setCountry] = useState('Denmark') //lets assume they are from dk as default
   const {currentUser}  = useAuth();
 
-  
-  // const getUser = async () => {
-  //   const token = await auth.currentUser?.getIdToken() 
-  //   const uid = await auth.currentUser?.uid   
-  //   console.log('uid', uid)
-  //   console.log('token', token)
-  //   const res = await axios.get(`http://localhost:3001/user/${uid}`,{ headers:
-  //   {
-  //     authorization: `Bearer ${token}`
-  //   }})
-  //   console.log('deetz result', res.data);
-  //   return res.data;
-  // }
   // lets create an effect that fetches data from the api
   const getUserDetails = () => {
     userService.getUser(currentUser).then( response => {
-      console.log('found user', response)
+      // this is a hack because if its the first time we receive a user from backend it will have 
+      // uninitialized values
       if (response.firstName){setFirstName(response.firstName)}
       if (response.lastName){setLastName(response.lastName)}
       if (response.country){setCountry(response.country)}
@@ -49,24 +37,17 @@ export default function Account() {
   useEffect(() => {
     getUserDetails()
   }, [])
-  // useEffect( () => {
-  //   getUser().then( (user) => {
-  //     setData(user);
-  //   })
-  // }, [])
 
   const updateUserDetails = async (e: any)=> {
-    //call api backend with form data
     e.preventDefault()
-    console.log('update user submit')
-    //input validation first
-    userService.updateUser(currentUser,{firstName,lastName,age,country}).then(response => {
-        console.log('response', response)
-      }).catch(e => console.log(e))
+    
+    userService.updateUser(currentUser,{firstName,lastName,age,country}).then(_response => {
+        console.log('update user successful')
+      }).catch(e => console.error(e))
     } 
   
   return (
-    // <>
+
       <Flex
         direction="column"
         width="100wh"
@@ -76,7 +57,7 @@ export default function Account() {
         alignItems="center">
         <Box>
           <Heading textAlign="center">{currentUser.email}</Heading>
-          <Text>Welcome {firstName} {lastName} from {country} Age for good measure {age}</Text>
+          <Text>Welcome {firstName} {lastName} from {country}, you're {age} years young</Text>
         </Box>
         <Box>
             <Input type="text"  isRequired value={firstName} onChange={(event) => {setFirstName(event?.target.value)}}/>
@@ -90,22 +71,9 @@ export default function Account() {
               <option>Norway</option>
               <option>Finland</option>
             </Select>
-            <Button loadingText="Updating" size="lg" colorScheme="teal" onClick={updateUserDetails}>Update user</Button> 
-          
-      </Box>
-      <Signout/>
-      
+            <Button loadingText="Updating" size="lg" colorScheme="teal" onClick={updateUserDetails}>Update user</Button>     
+        </Box>
+        <Signout/>
       </Flex>
-      // <UpdateUser/>
-  
-    
-   // <div>
-    //   <button onClick={ () => console.log('hi')}>Get Deets</button>
-    //   {data===null? <p>No data</p> : <p>{JSON.stringify(data)}</p>}
-      
-    //   <h1>Form values</h1>
-    //   <p>firstname {firstName} lastname {lastName} country {country}</p>
-    // </div>
-    
   )
 }

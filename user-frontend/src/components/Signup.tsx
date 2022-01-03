@@ -32,25 +32,8 @@ export default function Signup() {
       console.log('error registering new user')
       setError(e)
     }
-
   }
 
-  // const signUpNewUser = async (event: any) => {
-  //   event.preventDefault()
-  //   if(passwordRef === passwordConfirmRef) {
-  //     try{
-  //       const newUserCredential = await createUserWithEmailAndPassword(auth, emailRef.current.value, passwordRef.current.value)
-        
-  //       const user = newUserCredential.user  
-  //       console.log(user)
-  //     } catch (e) {
-  //       console.log(e)
-  //     }
-  //   } else {
-  //     alert('Passwords do not match')
-  //   }
-    
-  // }
   return (
     <>
       {error && <Alert status="error" textAlign="center">{error}</Alert>}
