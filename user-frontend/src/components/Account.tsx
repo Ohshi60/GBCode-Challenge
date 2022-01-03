@@ -4,6 +4,16 @@ import axios from 'axios'
 import Signout from './Signout'
 import { useAuth } from '../contexts/AuthContext'
 
+import { Box, Input, Select, FormControl, Heading, 
+  Flex,
+  NumberInput,
+  NumberInputField,
+  Text,
+  EditableInput,
+  Button } from '@chakra-ui/react'
+import UpdateUser from './UpdateUser'
+import { EmailAuthCredential } from 'firebase/auth'
+
 export default function Account() {
 
   //TODO: refactor into object
@@ -54,6 +64,7 @@ export default function Account() {
 
   const updateUserDetails = async (e: any)=> {
     //call api backend with form data
+    e.preventDefault()
     console.log('update user submit')
     //input validation first
     axios.put(`http://localhost:3001/user/${currentUser.uid}`, {firstName,  lastName, country, age},{ headers:
@@ -65,28 +76,39 @@ export default function Account() {
     } 
   
   return (
-    <>
-      <div>
-        <h1>HELLO</h1>
-        <p> {currentUser.email}</p>
-        <p>Welcome {firstName} {lastName} from {country} Age for good measure {age}</p>
-        <Signout/>
-      </div>
-      <div>
-        <form onSubmit={updateUserDetails}>
-          <input type="text" required value={firstName} onChange={(event) => {setFirstName(event?.target.value)}}/>
-          <input type="text" required value={lastName} onChange={(event) => {setLastName(event?.target.value)}}/>
-          <input type="number" required min={1} max={99} value={age} onChange={(e) => {setAge(Number(e.target.value))}}/>
-          <select value={country} onChange={(e) => setCountry(e.target.value)}>
-            <option>Denmark</option>
-            <option>Sweden</option>
-            <option>Norway</option>
-            <option>Finland</option>
-          </select>
-          <input type="submit" />
-        </form>  
-      </div>
-    </>
+    // <>
+    //   <Flex
+    //     direction="column"
+    //     width="100wh"
+    //     height="100vh"
+    //     backgroundColor="gray.200"
+    //     justifyContent="center"
+    //     alignItems="center">
+    //     <Box>
+    //       <Heading textAlign="center">{currentUser.email}</Heading>
+    //       <Text>Welcome {firstName} {lastName} from {country} Age for good measure {age}</Text>
+    //     </Box>
+    //     <Box>
+    //       <form onSubmit={updateUserDetails}>
+    //         <Input type="text"  isRequired value={firstName} onChange={(event) => {setFirstName(event?.target.value)}}/>
+    //         <Input type="text"  isRequired value={lastName} onChange={(event) => {setLastName(event?.target.value)}}/>
+    //         <NumberInput isRequired value={age} min={1} max={99} onChange={(e) => setAge(Number(e))}>
+    //           <NumberInputField />
+    //         </NumberInput>
+    //         <Select isRequired value={country} onChange={(e) => setCountry(e.target.value)}>
+    //           <option>Denmark</option>
+    //           <option>Sweden</option>
+    //           <option>Norway</option>
+    //           <option>Finland</option>
+    //         </Select>
+    //         <Button loadingText="Updating" size="lg" colorScheme="teal" type="submit">Update user</Button> 
+    //       </form>
+    //   </Box>
+    //   <Signout/>
+      
+    //   </Flex>
+      <UpdateUser/>
+  
     
    // <div>
     //   <button onClick={ () => console.log('hi')}>Get Deets</button>

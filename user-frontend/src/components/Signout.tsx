@@ -2,7 +2,8 @@
 import React from 'react'
 
 import { useAuth } from '../contexts/AuthContext'
-import {auth} from '../services/auth'
+
+import { Button } from '@chakra-ui/react'
 export default function Signout() {
 
   const {signOut} = useAuth()
@@ -13,8 +14,11 @@ export default function Signout() {
     })
   }
   return (
-    <div>
-      <button onClick={signOutHandler}>Sign out</button>      
-    </div>
+    <Button
+      p="4" 
+      colorScheme="red"
+      onClick={signOutHandler}>
+      Sign out
+    </Button>
   )
 }

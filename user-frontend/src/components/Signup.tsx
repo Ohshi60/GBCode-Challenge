@@ -3,7 +3,9 @@ import React, {useState, useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 //components
 import { useAuth } from '../contexts/AuthContext'
-//misc
+//chakra ui components
+import { Box, Button, Flex, FormControl, FormLabel, Heading, HStack, Input, InputGroup, Text, InputRightElement, Stack, useColorModeValue } from '@chakra-ui/react'
+
 
 export default function Signup() {
 
@@ -47,26 +49,68 @@ export default function Signup() {
     
   // }
   return (
-    <>
-      <div>
-        <p>{error}</p>
-        <h1>Signup</h1>
-        <form onSubmit={registerHandler}>
-          <label>Email
-            <input type="email" ref={emailRef} required></input>
-          </label>
-          <label>Password
-            <input type="password" ref={passwordRef} required></input>
-          </label>
-          <label>Confirm Password
-            <input type="password" ref={passwordConfirmRef} required></input>
-          </label>
-          <button type="submit">SIGN UP</button>
-        </form>
-      </div>
-      <div>
-        <p>already have an account? <Link to="/signin"> Sign in </Link></p>
-      </div>
-    </>
+    <Flex
+    minH={'100vh'}
+    align={'center'}
+    justify={'center'}
+    bg={useColorModeValue('gray.50', 'gray.800')}>
+    <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+      <Stack align={'center'}>
+        <Heading fontSize={'4xl'} textAlign={'center'}>
+          Sign up
+        </Heading>
+        <Text fontSize={'lg'} color={'gray.600'}>
+          to enjoy all of our cool features ✌️
+        </Text>
+      </Stack>
+      <Box
+        rounded={'lg'}
+        bg={useColorModeValue('white', 'gray.700')}
+        boxShadow={'lg'}
+        p={8}>
+        <Stack spacing={4}>
+          <HStack>
+            <Box>
+              <FormControl id="firstName" isRequired>
+                <FormLabel>First Name</FormLabel>
+                <Input type="text" />
+              </FormControl>
+            </Box>
+            <Box>
+              <FormControl id="lastName">
+                <FormLabel>Last Name</FormLabel>
+                <Input type="text" />
+              </FormControl>
+            </Box>
+          </HStack>
+          <FormControl id="email" isRequired>
+            <FormLabel>Email address</FormLabel>
+            <Input type="email" />
+          </FormControl>
+          <FormControl id="password" isRequired>
+            <FormLabel>Password</FormLabel>
+          </FormControl>
+          <Stack spacing={10} pt={2}>
+            <Button
+              loadingText="Submitting"
+              size="lg"
+              bg={'blue.400'}
+              color={'white'}
+              _hover={{
+                bg: 'blue.500',
+              }}>
+              Sign up
+            </Button>
+          </Stack>
+          <Stack pt={6}>
+            <Text align={'center'}>
+              Already a user? <Link to="/signin" color={'blue.400'}>Login</Link>
+            </Text>
+          </Stack>
+        </Stack>
+      </Box>
+    </Stack>
+  </Flex>
+
   )
 }
