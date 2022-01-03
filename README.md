@@ -42,6 +42,7 @@ You will need to have a firebase account, and create a Firebase Project
 ### Building for production
 - ### Backend
     - Compile src with `yarn run tsc`
+    - Run `yarn run postbuild` 
     - You can now run the application with `yarn run start`
 - ### Frontend
    - Compile src with `yarn run build`
@@ -53,3 +54,13 @@ You will need to have a firebase account, and create a Firebase Project
 
 `yarn run lint-fix` can be run on both front and backend
 
+
+# TODO'S
+
+- **USE TYPES** I know it defeats the purpose of typescript when i cast things as `any` 
+- Export build folder from frontend to backend, and setup express to use static
+- Validation - look into a form library such as Formik
+- UI is a mess, more time with Chakra 
+- Backend is creating a user on getUser, this is not very restful :(
+- Setup some form of error handling
+- Setup deployment
