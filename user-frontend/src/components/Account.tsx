@@ -57,6 +57,7 @@ export default function Account() {
 
   const updateUserDetails = async (e: any)=> {
     //call api backend with form data
+    e.preventDefault()
     console.log('update user submit')
     //input validation first
     userService.updateUser(currentUser,{firstName,lastName,age,country}).then(response => {
@@ -78,7 +79,6 @@ export default function Account() {
           <Text>Welcome {firstName} {lastName} from {country} Age for good measure {age}</Text>
         </Box>
         <Box>
-          <form onSubmit={updateUserDetails}>
             <Input type="text"  isRequired value={firstName} onChange={(event) => {setFirstName(event?.target.value)}}/>
             <Input type="text"  isRequired value={lastName} onChange={(event) => {setLastName(event?.target.value)}}/>
             <NumberInput isRequired value={age} min={1} max={99} onChange={(e) => setAge(Number(e))}>
@@ -90,8 +90,8 @@ export default function Account() {
               <option>Norway</option>
               <option>Finland</option>
             </Select>
-            <Button loadingText="Updating" size="lg" colorScheme="teal" type="submit">Update user</Button> 
-          </form>
+            <Button loadingText="Updating" size="lg" colorScheme="teal" onClick={updateUserDetails}>Update user</Button> 
+          
       </Box>
       <Signout/>
       

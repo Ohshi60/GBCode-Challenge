@@ -5,11 +5,8 @@ import { Flex,
   Box,
   Divider, 
   Heading, 
-  Text,  
   FormControl,
   FormLabel,
-  FormErrorMessage,
-  FormHelperText,
   InputGroup,
   Input,
   Button, } from '@chakra-ui/react'
@@ -36,7 +33,6 @@ export default function Signin() {
 
   const isError = email === ''
   return (
-    <>
       <Flex 
             flexDirection="column"
             width="100wh"
@@ -57,22 +53,20 @@ export default function Signin() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              {!isError ? (
-                <FormHelperText>
-                  Enter your email
-                </FormHelperText>
-              ) : (
-                <FormErrorMessage>Email is required.</FormErrorMessage>
-              )}
             </FormControl>
-            <InputGroup size='md'>
+            <FormControl>
+              <FormLabel> Password</FormLabel>
               <Input
+                isRequired
                 pr='4.5rem'
                 type='password'
                 placeholder='Enter password'
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
+            </FormControl>
+            <InputGroup size='md'>
+
             </InputGroup>
             <Button
                 borderRadius={0}
@@ -93,22 +87,6 @@ export default function Signin() {
               Sign Up
             </Link>
           </Box>
-          {/* <div>
-          <form onSubmit={signInHandler}>
-            <label>Email
-              <input type="email" value={email} onChange={(event) => {setEmail(event.target.value)}}></input>
-            </label>
-            <label>Password
-              <input type="password" value={password} onChange={(event) => {setPassword(event.target.value)}}></input>
-            </label>
-            <button type="submit" value="submit">SIGN IN</button>
-          </form>    
-        </div> */}
-
-      
       </Flex>
-
-    </>
-    
   )
 }

@@ -76,7 +76,7 @@ export const getUser = async (uid: string) => {
 };
 
 export const updateUser = async (uid:string, data:any) => {
-  const {firstName, lastName, country,age} = data
+  const {firstName, lastName, country, age} = data;
   const db:any = await refreshDb();
   const user = db.find( (user:any) => user.uid === uid);
   // const updatedUser = {...user, country: data.country, firstName: data.fname,
