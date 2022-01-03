@@ -9,10 +9,9 @@ import { Box, Input, Select, FormControl, Heading,
   NumberInput,
   NumberInputField,
   Text,
-  EditableInput,
   Button } from '@chakra-ui/react'
-import UpdateUser from './UpdateUser'
-import { EmailAuthCredential } from 'firebase/auth'
+// import UpdateUser from './UpdateUser'
+import userService from '../services/userService'
 
 export default function Account() {
 
@@ -38,18 +37,12 @@ export default function Account() {
   // }
   // lets create an effect that fetches data from the api
   const getUserDetails = () => {
-    const endpoint = `http://localhost:3001/user/${currentUser.uid}`
-    axios.get(endpoint, {
-      headers: {
-        authorization: `Bearer ${currentUser.accessToken}`
-      }
-    }).then( response => {
-      console.log('found user', response.data)
-      if (response.data.firstName){setFirstName(response.data.firstName)}
-      if (response.data.lastName){setLastName(response.data.lastName)}
-      if (response.data.country){setCountry(response.data.country)}
-      if (response.data.age){setAge(response.data.age)}
-
+    userService.getUser(currentUser).then( response => {
+      console.log('found user', response)
+      if (response.firstName){setFirstName(response.firstName)}
+      if (response.lastName){setLastName(response.lastName)}
+      if (response.country){setCountry(response.country)}
+      if (response.age){setAge(response.age)}
     }).catch( e => console.log(e))
   }
   
@@ -64,50 +57,46 @@ export default function Account() {
 
   const updateUserDetails = async (e: any)=> {
     //call api backend with form data
-    e.preventDefault()
     console.log('update user submit')
     //input validation first
-    axios.put(`http://localhost:3001/user/${currentUser.uid}`, {firstName,  lastName, country, age},{ headers:
-      {
-        authorization: `Bearer ${currentUser.accessToken}`
-      }}).then(response => {
-        console.log('updated user')
+    userService.updateUser(currentUser,{firstName,lastName,age,country}).then(response => {
+        console.log('response', response)
       }).catch(e => console.log(e))
     } 
   
   return (
     // <>
-    //   <Flex
-    //     direction="column"
-    //     width="100wh"
-    //     height="100vh"
-    //     backgroundColor="gray.200"
-    //     justifyContent="center"
-    //     alignItems="center">
-    //     <Box>
-    //       <Heading textAlign="center">{currentUser.email}</Heading>
-    //       <Text>Welcome {firstName} {lastName} from {country} Age for good measure {age}</Text>
-    //     </Box>
-    //     <Box>
-    //       <form onSubmit={updateUserDetails}>
-    //         <Input type="text"  isRequired value={firstName} onChange={(event) => {setFirstName(event?.target.value)}}/>
-    //         <Input type="text"  isRequired value={lastName} onChange={(event) => {setLastName(event?.target.value)}}/>
-    //         <NumberInput isRequired value={age} min={1} max={99} onChange={(e) => setAge(Number(e))}>
-    //           <NumberInputField />
-    //         </NumberInput>
-    //         <Select isRequired value={country} onChange={(e) => setCountry(e.target.value)}>
-    //           <option>Denmark</option>
-    //           <option>Sweden</option>
-    //           <option>Norway</option>
-    //           <option>Finland</option>
-    //         </Select>
-    //         <Button loadingText="Updating" size="lg" colorScheme="teal" type="submit">Update user</Button> 
-    //       </form>
-    //   </Box>
-    //   <Signout/>
+      <Flex
+        direction="column"
+        width="100wh"
+        height="100vh"
+        backgroundColor="gray.200"
+        justifyContent="center"
+        alignItems="center">
+        <Box>
+          <Heading textAlign="center">{currentUser.email}</Heading>
+          <Text>Welcome {firstName} {lastName} from {country} Age for good measure {age}</Text>
+        </Box>
+        <Box>
+          <form onSubmit={updateUserDetails}>
+            <Input type="text"  isRequired value={firstName} onChange={(event) => {setFirstName(event?.target.value)}}/>
+            <Input type="text"  isRequired value={lastName} onChange={(event) => {setLastName(event?.target.value)}}/>
+            <NumberInput isRequired value={age} min={1} max={99} onChange={(e) => setAge(Number(e))}>
+              <NumberInputField />
+            </NumberInput>
+            <Select isRequired value={country} onChange={(e) => setCountry(e.target.value)}>
+              <option>Denmark</option>
+              <option>Sweden</option>
+              <option>Norway</option>
+              <option>Finland</option>
+            </Select>
+            <Button loadingText="Updating" size="lg" colorScheme="teal" type="submit">Update user</Button> 
+          </form>
+      </Box>
+      <Signout/>
       
-    //   </Flex>
-      <UpdateUser/>
+      </Flex>
+      // <UpdateUser/>
   
     
    // <div>
