@@ -1,10 +1,9 @@
 # README
 
-This is a simple fullstack webapp using React, Firebase-auth, Typescript and Express on the backend
-
-
+This is a simple fullstack webapp using React, Firebase-auth, Typescript and Express
 
 # Installation
+
 I will assume you are running a unix system
 
 Requires `Node.JS` to run
@@ -28,7 +27,7 @@ You will need to have a firebase account, and create a Firebase Project
 
 ### Building the backend
 - **IMPORTANT** Remember the service account file from the firebase-setup? You will need to move it into `user-backend/src/config/serviceAccountKey.json`
-- Move into the backend folder now `cd ../user-backend`
+- Move into the backend folder `cd ../user-backend`
 - Install the dependencies with `npm install `or `yarn install`
 
 ### Running in development mode
@@ -64,3 +63,4 @@ You will need to have a firebase account, and create a Firebase Project
 - Backend is creating a user on getUser, this is not very restful :(
 - Setup some form of error handling
 - Setup deployment
+- Set up testing
